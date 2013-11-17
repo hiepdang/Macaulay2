@@ -6,8 +6,7 @@
 -- University of Kaiserslautern
 -- Germany
 
--- The following are the Macaulay2 routines to count rational curves on certain
--- Calabi-Yau threefolds.
+-- The following are the Macaulay2 routines to compute Gromov-Witten invariants.
 
 rationalCurve = method()
 --return a Gromov-Witten invariant corresponding the number of rational
