@@ -1,8 +1,3 @@
-Macaulay2
-=========
-
-Macaulay2 code
-
 This is a project in Macaulay2 followed the Schubert2 package,
 Schubert3 package, and Singular library schubert.lib.
 
