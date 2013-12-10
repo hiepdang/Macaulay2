@@ -1,16 +1,18 @@
--- Author: 
+-- -*- coding: utf-8 -*-
 
--- Hiep Dang
+newPackage(
+        "EnumerationCurves",
+        Version => "0.1",
+        Date => "December 10, 2013",
+        Authors => {{Name => "Hiep Dang",
+                    Email => "hiep.dang.1983@gmail.com"}},
+        Headline => "Enumeration of rational curves via torus actions",
+        DebuggingMode => false
+        )
 
--- Department of Mathematics 
--- University of Kaiserslautern
--- Germany
-
--- The following are the Macaulay2 routines to compute Gromov-Witten invariants.
+export {"rationalCurve","linesHypersurface","multipleCover"}
 
 rationalCurve = method()
---return a Gromov-Witten invariant corresponding the number of rational
---curves on a general Calabi-Yau threefold.
 rationalCurve(ZZ,List) := (d,D) -> (
     r := #D + 3;
     F := fixedPoints(r,d);
@@ -25,8 +27,6 @@ rationalCurve(ZZ,List) := (d,D) -> (
 rationalCurve(ZZ) := (d) -> rationalCurve(d,{5});
 
 multipleCover = method()
---this is the contribution of degree d multiple covers of a smooth rational 
---curve as a Gromov-Witten invariant.
 multipleCover(ZZ) := (d) -> (
     F := fixedPoints(1,d);
     result := 0;
@@ -39,8 +39,6 @@ multipleCover(ZZ) := (d) -> (
     )
 
 linesHypersurface = method()
---return the number of lines on a general hypersurface of degree d = 2n-3 in an
---n-dimensional projective space.
 linesHypersurface(ZZ) := (n) -> (
     F := fixedPoints(n,1);
     result := 0;
@@ -875,14 +873,144 @@ graph611 = (d,i,j,k,h,m,n,p) -> (
     {vertices,edges}
     )
 
+beginDocumentation()
+
+doc ///
+  Key
+    EnumerationCurves
+  Headline
+    Enumeration of rational curves via torus actions
+  Description
+    Text
+      
+      {\it EnumerationCurves} is a package to compute the physical numbers of rational curves on Calabi-Yau threefolds
+      via torus actions. 
+      
+      The implementation uses the formula given in the paper of Kontsevich "{\it Enumeration of rational curves via torus actions}".
+      
+      The main idea is to apply the localization theorem of Atiyah and Bott to reduce the computation to integrations over 
+      graphs.
+///
+
+doc ///
+  Key
+    rationalCurve
+    (rationalCurve, ZZ)
+    (rationalCurve, ZZ, List)
+  Headline
+    Rational curves on Calabi-Yau threefolds
+  Usage
+    rationalCurve(d)
+    rationalCurve(d,D)
+  Inputs
+    d:ZZ
+      the degree d of a rational curve
+    D:List
+      a list of positive integers corresponding to the type of a complete intersection
+  Outputs
+    :QQ
+      the the physical number of rational curves on a general Calabi-Yau threefold
+  Description
+    Text
+      Computes the physical number of rational curves on a general complete intersection 
+      Calabi-Yau threefold in some projective space.
+
+      There are five types of such the complete intersections: quintic hypersurface in P^4,
+      complete intersections of types (4,2) and (3,3) in P^5, complete intersection of type (3,2,2) in P^6,
+      complete intersection of type (2,2,2,2) in P^7.
+      
+      For lines:
+    
+    Example
+      rationalCurve(1)
+      T = {{5},{4,2},{3,3},{3,2,2},{2,2,2,2}}
+      for D in T list rationalCurve(1,D)
+    Text
+      For conics:
+    
+    Example
+      rationalCurve(2)
+      for D in T list rationalCurve(2,D)
+    Text
+      For rational curves of degree 3:
+    
+    Example
+      rationalCurve(3)
+      for D in T list rationalCurve(3,D)
+    Text
+      For rational curves of degree 4:
+    
+    Example
+      time rationalCurve(4)
+      time rationalCurve(4,{4,2})
+///
+
+doc ///
+  Key
+    multipleCover
+    (multipleCover, ZZ)
+  Headline
+    Multiple coverings of rational curves on Calabi-Yau threefolds
+  Usage
+    multipleCover(d)
+  Inputs
+    d:ZZ
+      the degree d of a rational curve
+  Outputs
+    :QQ
+      the contribution of multiple coverings of rational curves on Calabi-Yau threefolds
+  Description
+    Text
+      Computes the contribution of multiple coverings of a smooth rational curve as a Gromov-Witten invariant.
+      
+    Example
+      for d from 1 to 6 list multipleCover(d)
+///
+
+doc ///
+  Key
+    linesHypersurface
+    (linesHypersurface, ZZ)
+  Headline
+    Lines on hypersurfaces
+  Usage
+    linesHypersurface(n)
+  Inputs
+    n:ZZ
+      the dimension of ambient projective space
+  Outputs
+    :ZZ
+      the number of lines on a general hypersurface of degree 2n - 3 in P^n
+  Description
+    Text
+      Computes the number of lines on a general hypersurface of degree 2n - 3 in P^n.
+
+    Example
+      for n from 2 to 10 list linesHypersurface(n)
+///
+
+TEST ///
+    assert(rationalCurve(1) == 2875)
+    assert(rationalCurve(2) == 4876875/8)
+    assert(rationalCurve(3) == 8564575000/27)
+    assert(rationalCurve(4) == 15517926796875/64)
+    assert(rationalCurve(5) == 229305888887648)
+    assert(multipleCover(1) == 1)
+    assert(multipleCover(2) == 1/8)
+    assert(multipleCover(3) == 1/27)
+    assert(multipleCover(4) == 1/64)
+    assert(multipleCover(5) == 1/125)
+    assert(multipleCover(6) == 1/216)
+    assert(linesHypersurface(3) == 27)
+    assert(linesHypersurface(4) == 2875)
+    assert(linesHypersurface(5) == 698005)
+    assert(linesHypersurface(6) == 305093061)
+///
+
 end
 
 restart
-load "Bott.m2"
-for d from 1 to 4 list rationalCurve(d)
-for d from 1 to 6 list multipleCover(d)
-T = {{5},{4,2},{3,3},{3,2,2},{2,2,2,2}};
-for t in T list rationalCurve(1,t)
-for t in T list rationalCurve(2,t)
-for t in T list rationalCurve(3,t)
-for n from 2 to 10 list linesHypersurface(n)
+uninstallPackage "EnumerationCurves"
+notify=true
+installPackage "EnumerationCurves"
+viewHelp EnumerationCurves
