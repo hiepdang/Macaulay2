@@ -886,7 +886,7 @@ doc ///
       {\it EnumerationCurves} is a package to compute the physical numbers of rational curves on Calabi-Yau threefolds
       via torus actions. 
       
-      The implementation uses the formula given in the paper of Kontsevich "{\it Enumeration of rational curves via torus actions}".
+      The implementation uses the formulas given in the paper of Kontsevich "{\it Enumeration of rational curves via torus actions}".
       
       The main idea is to apply the localization theorem of Atiyah and Bott to reduce the computation to integrations over 
       graphs.
@@ -909,15 +909,15 @@ doc ///
       a list of positive integers corresponding to the type of a complete intersection
   Outputs
     :QQ
-      the the physical number of rational curves on a general Calabi-Yau threefold
+      the physical number of rational curves on a general Calabi-Yau threefold
   Description
     Text
       Computes the physical number of rational curves on a general complete intersection 
       Calabi-Yau threefold in some projective space.
 
-      There are five types of such the complete intersections: quintic hypersurface in P^4,
-      complete intersections of types (4,2) and (3,3) in P^5, complete intersection of type (3,2,2) in P^6,
-      complete intersection of type (2,2,2,2) in P^7.
+      There are five types of such the complete intersections: quintic hypersurface in \mathbb P^4,
+      complete intersections of types (4,2) and (3,3) in \mathbb P^5, complete intersection of type (3,2,2) in \mathbb P^6,
+      complete intersection of type (2,2,2,2) in \mathbb P^7.
       
       For lines:
     
@@ -926,23 +926,56 @@ doc ///
       T = {{5},{4,2},{3,3},{3,2,2},{2,2,2,2}}
       for D in T list rationalCurve(1,D)
     Text
+      This gives the numbers of lines on general complete intersection Calabi-Yau threefolds.
+      
       For conics:
     
     Example
       rationalCurve(2)
       for D in T list rationalCurve(2,D)
     Text
+      The number of conics on a general quintic threefold can be computed as follows:
+      
+    Example
+      rationalCurve(2) - rationalCurve(1)/8
+    Text
+      The numbers of conics on general complete intersection Calabi-Yau threefolds can be computed as follows:
+    
+    Example
+      time for D in T list rationalCurve(2,D) - rationalCurve(1,D)/8
+    Text
       For rational curves of degree 3:
     
     Example
-      rationalCurve(3)
-      for D in T list rationalCurve(3,D)
+      time rationalCurve(3)
+      time for D in T list rationalCurve(3,D)
+    Text
+      The number of rational curves of degree 3 on a general quintic threefold can be computed as follows:
+      
+    Example
+      time rationalCurve(3) - rationalCurve(1)/27
+    Text
+      The numbers of rational curves of degree 3 on general complete intersection Calabi-Yau threefolds can be computed as follows:
+    
+    Example
+      time for D in T list rationalCurve(3,D) - rationalCurve(1,D)/27
     Text
       For rational curves of degree 4:
     
     Example
       time rationalCurve(4)
       time rationalCurve(4,{4,2})
+    Text
+      The number of rational curves of degree 4 on a general quintic threefold can be computed as follows:
+      
+    Example
+      time rationalCurve(4) - rationalCurve(2)/8
+    Text
+      The numbers of rational curves of degree 4 on general complete intersections of types (4,2) and (3,3) in \mathbb P^5 can be computed as follows:
+    
+    Example
+      time rationalCurve(4,{4,2}) - rationalCurve(2,{4,2})/8
+      time rationalCurve(4,{3,3}) - rationalCurve(2,{3,3})/8
 ///
 
 doc ///
@@ -980,13 +1013,13 @@ doc ///
       the dimension of ambient projective space
   Outputs
     :ZZ
-      the number of lines on a general hypersurface of degree 2n - 3 in P^n
+      the number of lines on a general hypersurface of degree 2n - 3 in \mathbb P^n
   Description
     Text
-      Computes the number of lines on a general hypersurface of degree 2n - 3 in P^n.
+      Computes the number of lines on a general hypersurface of degree 2n - 3 in \mathbb P^n.
 
     Example
-      for n from 2 to 10 list linesHypersurface(n)
+      time for n from 2 to 10 list linesHypersurface(n)
 ///
 
 TEST ///
@@ -994,7 +1027,7 @@ TEST ///
     assert(rationalCurve(2) == 4876875/8)
     assert(rationalCurve(3) == 8564575000/27)
     assert(rationalCurve(4) == 15517926796875/64)
-    assert(rationalCurve(5) == 229305888887648)
+--    assert(rationalCurve(5) == 229305888887648)
     assert(multipleCover(1) == 1)
     assert(multipleCover(2) == 1/8)
     assert(multipleCover(3) == 1/27)
