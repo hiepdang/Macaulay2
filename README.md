@@ -1,6 +1,3 @@
-This is a project in Macaulay2 followed the Schubert2 package,
-Schubert3 package, and Singular library schubert.lib.
-
 Goals: 
 
 1. Add tools for computations in equivariant intersection theory. 
