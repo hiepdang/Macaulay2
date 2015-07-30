@@ -10,6 +10,16 @@ degreeFanoScheme = (k,d,n) -> (
     integral(s*q^p)
     )
 
+algdegSDP = (m,n,r) -> (
+    k := m - binomial(n-r+1,2);
+    l := binomial(n+1,2)-m-binomial(r+1,2);
+    G := flagBundle {r,n-r};
+    A := symmetricPower_2 dual first bundles G;
+    B := symmetricPower_2 last bundles G;
+    s := segre_k B * segre_l A;
+    integral(s)
+    )
+
 GWLines = (k,a,b) -> (
 -- computes the Gromov-Witten invariants for lines as in the paper of Katz
 -- http://arxiv.org/abs/alg-geom/9301006
