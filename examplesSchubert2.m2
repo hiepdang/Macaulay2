@@ -11,6 +11,7 @@ degreeFanoScheme = (k,d,n) -> (
     )
 
 algdegSDP = (m,n,r) -> (
+-- compute the algebraic degree of semidefinite programming
     k := m - binomial(n-r+1,2);
     l := binomial(n+1,2)-m-binomial(r+1,2);
     G := flagBundle {r,n-r};
