@@ -37,7 +37,7 @@ GWLines = (k,a,b) -> (
 restart
 loadPackage "Schubert2"
 G = flagBundle({2,2})            -- Grassmannian of lines in P^3
-sigma_1 = schubertCycle(G,{1,0}) -- Create schubert cycle sigma_1
+sigma_1 = schubertCycle({1,0},G) -- Create schubert cycle sigma_1
 integral sigma_1^4               -- Fourfold self intersection
 
 --Calculate the number of lines on a cubic surface
@@ -68,7 +68,7 @@ integral chern B
 restart
 loadPackage "Schubert2"
 G = flagBundle({1,3})                                --Projective space of planes in P^3
-h = schubertCycle(G,{1,0,0})                         --hyperplane class
+h = schubertCycle({1,0,0},G)                         --hyperplane class
 (S,Q) = G.Bundles                                    --Tautological bundles  
 B = symmetricPower(2,Q)                              --2nd symmetric power
 H = projectiveBundle(dual B,VariableNames =>{,{z}})  --Space H of conics, with z = c(O(1))
